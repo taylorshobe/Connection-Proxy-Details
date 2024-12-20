@@ -1,0 +1,33 @@
+import requests
+
+# Define proxy settings (example format, replace with your actual proxy if applicable)
+proxies = {
+    "http": "http://your-company-proxy:port",
+    "https": "http://your-company-proxy:port",
+}
+
+# Define the URL to test
+test_url = "https://schwab-nde.nicecloudsvc.com:443/query/Agent_Schedule.csv?apikey=your_api_key"
+
+try:
+    print("Testing connection with the following settings:")
+    print(f"Proxies: {proxies}")
+    
+    # Perform a test request
+    response = requests.get(test_url, proxies=proxies, timeout=10)
+    
+    # Print the request headers
+    print("\nRequest Headers:")
+    for key, value in response.request.headers.items():
+        print(f"{key}: {value}")
+    
+    # Print the response status and headers
+    print("\nResponse Headers:")
+    for key, value in response.headers.items():
+        print(f"{key}: {value}")
+    
+    # Print content (if necessary)
+    print("\nResponse Content Preview:")
+    print(response.text[:500])  # Print the first 500 characters
+except requests.exceptions.RequestException as e:
+    print(f"Failed to connect: {e}")
